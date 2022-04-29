@@ -20,7 +20,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
   let body;
   body = (
     <NextLink href="/login">
-      <Button mr={4} color="primary">
+      <Button mr={4} color="primary" rounded={"2xl"}>
         Login
       </Button>
     </NextLink>
@@ -51,7 +51,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
       <Flex alignItems="center" py={4} maxH="100%">
         <NextLink href="/">
           <Link color="white" ml={4}>
-            <Img src="/CTL.png" h="60px" />
+            <Img src="/images/CTL.png" h="60px" />
           </Link>
         </NextLink>
       </Flex>
@@ -62,6 +62,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
           icon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
           mr={4}
           onClick={toggleColorMode}
+          rounded={"2xl"}
         />
         {body}
       </Flex>
