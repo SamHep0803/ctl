@@ -14,6 +14,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{secrets.PASSWORD}}
           script: |
+            bash
             cd ctl/
             git pull
             yarn
