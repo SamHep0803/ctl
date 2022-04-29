@@ -32,7 +32,11 @@ export const Hero: React.FC<HeroProps> = ({}) => {
               <Img src="/Land.png" alignSelf="center" />
             </Flex>
           </Heading>
-          <Text color={"gray.500"} maxW="2xl" fontSize="xl">
+          <Text
+            color={"gray.500"}
+            maxW="2xl"
+            fontSize={{ base: "xl", xs: "sm", sm: "md", md: "lg" }}
+          >
             Welcome to VATMENA and VATEUD's biggest bi-annual event of the year!
           </Text>
           <Stack
