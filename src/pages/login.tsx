@@ -35,7 +35,7 @@ const Login: NextPage = () => {
             _hover={{ bg: "primary.500" }}
           >
             Login with
-            <Img src="/images/vatsim.png" alt="Vatsim" h="25px" ml={2} />
+            <Img src="/images/vatsim_black.png" alt="Vatsim" h="25px" ml={1} />
           </Button>
         </Flex>
       </Stack>
