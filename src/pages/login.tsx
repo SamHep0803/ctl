@@ -8,8 +8,15 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { NextPage } from "next";
+import { signIn, useSession } from "next-auth/react";
 
 const Login: NextPage = () => {
+  const { data: session } = useSession();
+
+  if (session) {
+    window.location.href = "/";
+  }
+
   return (
     <Container maxW={"3xl"}>
       <Stack
@@ -24,7 +31,7 @@ const Login: NextPage = () => {
           fontSize={{ base: "3xl", sm: "5xl", md: "7xl" }}
           lineHeight={"110%"}
         >
-          Login
+          CTL Login
         </Heading>
         <Flex>
           <Button
@@ -33,9 +40,10 @@ const Login: NextPage = () => {
             rounded={"2xl"}
             px={6}
             _hover={{ bg: "primary.500" }}
+            onClick={() => signIn("vatsim")}
           >
             Login with
-            <Img src="/images/vatsim_black.png" alt="Vatsim" h="25px" ml={1} />
+            <Img src="/images/vatsim_black.png" alt="VATSIM" h="25px" ml={1} />
           </Button>
         </Flex>
       </Stack>
