@@ -12,7 +12,8 @@ declare module "next-auth" {
       id: string;
       cid: string;
       full_name: string;
-      rating: number;
+      ratingId: number;
+      rating: string;
       region: string;
       email: string;
     };
@@ -21,7 +22,8 @@ declare module "next-auth" {
     id: string;
     cid: string;
     full_name: string;
-    rating: number;
+    ratingId: number;
+    rating: string;
     region: string;
     email: string;
   }
@@ -39,7 +41,8 @@ declare module "next-auth/jwt" {
     id: string;
     cid: string;
     full_name: string;
-    rating: number;
+    ratingId: number;
+    rating: string;
     region: string;
     email: string;
   }

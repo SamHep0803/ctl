@@ -60,10 +60,12 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             </Center>
             <Center pb={2}>
               <Text mr={2}>{session.user.full_name}</Text>
-              <RatingBadge rating={session.user.rating} />
+              <RatingBadge rating={session.user.ratingId} />
             </Center>
             <MenuDivider />
-            <MenuItem>Your Profile</MenuItem>
+            <NextLink href="/me">
+              <MenuItem>Your Profile</MenuItem>
+            </NextLink>
             <MenuItem onClick={() => signOut({ redirect: true })}>
               Logout
             </MenuItem>

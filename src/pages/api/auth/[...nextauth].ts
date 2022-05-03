@@ -29,7 +29,8 @@ export default NextAuth({
           id: data.cid,
           cid: data.cid,
           full_name: data.personal.name_full,
-          rating: data.vatsim.rating.id,
+          ratingId: data.vatsim.rating.id,
+          rating: data.vatsim.rating.short,
           region: data.vatsim.region.name,
           email: data.personal.email,
         };
@@ -41,6 +42,7 @@ export default NextAuth({
       if (user) {
         token.cid = user.cid;
         token.full_name = user.full_name;
+        token.ratingId = user.ratingId;
         token.rating = user.rating;
         token.region = user.region;
         token.email = user.email;
@@ -49,9 +51,9 @@ export default NextAuth({
       return token;
     },
     async session({ session, token }) {
-      // console.log(token);
       session.user.cid = token.cid;
       session.user.full_name = token.full_name;
+      session.user.ratingId = token.ratingId;
       session.user.rating = token.rating;
       session.user.region = token.region;
       session.user.email = token.email;
