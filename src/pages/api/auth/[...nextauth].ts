@@ -1,5 +1,6 @@
-import NextAuth from "next-auth";
-import { VatsimUser } from "../../../Interfaces/VatsimUser";
+import NextAuth, { Awaitable, Session, User } from "next-auth";
+import { JWT } from "next-auth/jwt";
+import { VatsimUser } from "../../../interfaces/VatsimUser";
 
 export default NextAuth({
   providers: [
@@ -23,14 +24,38 @@ export default NextAuth({
       clientId: process.env.VATSIM_CLIENT_ID,
       clientSecret: process.env.VATSIM_CLIENT_SECRET,
       userinfo: `${process.env.VATSIM_URL}/api/user`,
-      profile({ data }: { data: VatsimUser }) {
+      profile({ data }: { data: VatsimUser }): Awaitable<User> {
         return {
           id: data.cid,
-          name: data.personal.name_full,
+          cid: data.cid,
+          full_name: data.personal.name_full,
+          rating: data.vatsim.rating.id,
+          region: data.vatsim.region.name,
           email: data.personal.email,
-          rating: data.vatsim.rating.short,
         };
       },
     },
   ],
+  callbacks: {
+    async jwt({ token, user, profile, account }) {
+      if (user) {
+        token.cid = user.cid;
+        token.full_name = user.full_name;
+        token.rating = user.rating;
+        token.region = user.region;
+        token.email = user.email;
+      }
+      console.log(token);
+      return token;
+    },
+    async session({ session, token }) {
+      // console.log(token);
+      session.user.cid = token.cid;
+      session.user.full_name = token.full_name;
+      session.user.rating = token.rating;
+      session.user.region = token.region;
+      session.user.email = token.email;
+      return session;
+    },
+  },
 });

@@ -1,50 +1,77 @@
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import {
+  Avatar,
   Button,
+  Center,
   Flex,
   IconButton,
   Img,
   Link,
+  Menu,
+  MenuButton,
+  MenuDivider,
+  MenuItem,
+  MenuList,
+  Text,
   useColorMode,
   useDisclosure,
 } from "@chakra-ui/react";
+import { signOut, useSession } from "next-auth/react";
 import NextLink from "next/link";
 import React from "react";
+import { RatingBadge } from "./RatingBadge";
 
 interface NavBarProps {}
 
 export const NavBar: React.FC<NavBarProps> = ({}) => {
   const { isOpen, onToggle } = useDisclosure();
+  const { data: session, status } = useSession();
 
   const { colorMode, toggleColorMode } = useColorMode();
   let body;
-  body = (
-    <NextLink href="/login">
-      <Button mr={4} color="primary" rounded={"2xl"}>
-        Login
-      </Button>
-    </NextLink>
-  );
-  // body = (
-  // 	<>
-  // 		<Stack
-  // 			direction={{ base: "column", md: "row" }}
-  // 			display={{ base: "none", md: "flex" }}
-  // 			ml="auto"
-  // 			alignItems="center"
-  // 			pr={4}
-  // 		>
-  // 			<Button colorScheme="twitter" mr={2} onClick={signOut}>
-  // 				Sign Out
-  // 			</Button>
-  // 			<Box mr={4} color="white">
-  // 				@{profile.username}
-  // 			</Box>
-  // 		</Stack>
-  // 		<Box mr={2}>
-  // 			<Img src={profile.avatar_url} size="sm" rounded="full" />
-  // 		</Box>
-  // 	</>
+  if (!session) {
+    body = (
+      <NextLink href="/login">
+        <Button mr={4} color="primary" rounded={"2xl"}>
+          Login
+        </Button>
+      </NextLink>
+    );
+  } else if (status === "authenticated") {
+    body = (
+      <>
+        <Menu>
+          <MenuButton
+            as={Button}
+            rounded={"full"}
+            variant="full"
+            cursor={"pointer"}
+            minW={0}
+            maxW={"sm"}
+            h="48px"
+            p={0}
+          >
+            {console.log(session)}
+            <Avatar size={"md"} name={session.user.full_name} />
+          </MenuButton>
+          <MenuList alignItems={"center"}>
+            <Center py={2}>
+              <Avatar size={"2xl"} name={session.user.full_name} />
+            </Center>
+            <Center pb={2}>
+              <Text mr={2}>{session.user.full_name}</Text>
+              <RatingBadge rating={session.user.rating} />
+            </Center>
+            <MenuDivider />
+            <MenuItem>Your Profile</MenuItem>
+            <MenuItem onClick={() => signOut({ redirect: true })}>
+              Logout
+            </MenuItem>
+          </MenuList>
+        </Menu>
+      </>
+    );
+  }
 
   return (
     <Flex>
