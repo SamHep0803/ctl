@@ -33,6 +33,12 @@ export const resolvers = {
         },
       });
     },
+    me(_: any, __: any, ctx: Context) {
+      if (ctx.session) {
+        return ctx.session.user;
+      }
+      return null;
+    },
   },
   Mutation: {
     createEvent(_: any, args: CreateEventArgs, ctx: Context) {

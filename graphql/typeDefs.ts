@@ -9,9 +9,20 @@ export const typeDefs = gql`
     updatedAt: String
   }
 
+  type User {
+    id: String
+    cid: String
+    full_name: String
+    ratingId: Int
+    rating: String
+    region: String
+    email: String
+  }
+
   type Query {
     events: [Event]!
     event(id: Int!): Event
+    me: User
   }
 
   type Mutation {

@@ -5,6 +5,7 @@ import {
   ApolloServerPluginLandingPageProductionDefault,
 } from "apollo-server-core";
 import { ApolloServer } from "apollo-server-micro";
+import { MicroRequest } from "apollo-server-micro/dist/types";
 import Cors from "micro-cors";
 import { createContext } from "../../../graphql/context";
 import { resolvers } from "../../../graphql/resolvers";
@@ -13,10 +14,12 @@ import { typeDefs } from "../../../graphql/typeDefs";
 const cors = Cors();
 
 const apolloServer = new ApolloServer({
-  plugins: [ApolloServerPluginLandingPageLocalDefault],
+  plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
   typeDefs,
   resolvers,
-  context: createContext,
+  context: async ({ req }: { req: MicroRequest }) => {
+    return createContext(req);
+  },
 });
 const startServer = apolloServer.start();
 
