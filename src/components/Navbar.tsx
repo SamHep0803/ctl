@@ -51,7 +51,6 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             h="48px"
             p={0}
           >
-            {console.log(session)}
             <Avatar size={"md"} name={session.user.full_name} />
           </MenuButton>
           <MenuList alignItems={"center"}>

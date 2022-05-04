@@ -47,7 +47,6 @@ export default NextAuth({
         token.region = user.region;
         token.email = user.email;
       }
-      console.log(token);
       return token;
     },
     async session({ session, token }) {
