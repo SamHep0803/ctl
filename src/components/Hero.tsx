@@ -8,6 +8,7 @@ import {
   Stack,
   Text,
 } from "@chakra-ui/react";
+import NextLink from "next/link";
 import React from "react";
 
 interface HeroProps {}
@@ -29,7 +30,7 @@ export const Hero: React.FC<HeroProps> = ({}) => {
             lineHeight={"110%"}
           >
             <Flex alignSelf={"center"} justifyContent="center">
-              <Img src="/Land.png" alignSelf="center" />
+              <Img src="/images/HeroImg.png" alignSelf="center" />
             </Flex>
           </Heading>
           <Text
@@ -46,17 +47,19 @@ export const Hero: React.FC<HeroProps> = ({}) => {
             alignSelf={"center"}
             position={"relative"}
           >
-            <Button
-              colorScheme={"green"}
-              bg={"primary.400"}
-              rounded={"full"}
-              px={6}
-              _hover={{
-                bg: "primary.500",
-              }}
-            >
-              Login
-            </Button>
+            <NextLink href="/login">
+              <Button
+                colorScheme={"green"}
+                bg={"primary.400"}
+                rounded={"2xl"}
+                px={4}
+                _hover={{
+                  bg: "primary.500",
+                }}
+              >
+                Get Started!
+              </Button>
+            </NextLink>
             <Button variant={"link"} colorScheme={"blue"} size={"sm"}>
               Learn more
             </Button>
