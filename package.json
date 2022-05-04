@@ -1,10 +1,12 @@
 {
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev:local": "dotenv -e environments/.env.local next dev",
+    "dev:staging": "dotenv -e environments/.env.staging next dev",
     "build": "next build",
     "start": "next start",
-    "create:db": "prisma db push && prisma db seed"
+    "init-db:local": "dotenv -e environments/.env.local prisma db push && dotenv -e environments/.env.local prisma db seed",
+    "init-db:staging": "dotenv -e environments/.env.staging prisma db push && dotenv -e environments/.env.staging prisma db seed"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
@@ -31,6 +33,7 @@
     "@types/node": "17.0.4",
     "@types/react": "17.0.38",
     "autoprefixer": "^10.4.0",
+    "dotenv-cli": "^5.1.0",
     "graphql": "^16.4.0",
     "prettier": "^2.5.1",
     "prisma": "^3.13.0",
