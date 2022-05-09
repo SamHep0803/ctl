@@ -1,4 +1,4 @@
-import { Container, Heading } from "@chakra-ui/react";
+import { Container, Flex, Heading, Spinner } from "@chakra-ui/react";
 import { NextPage } from "next";
 import { useSession } from "next-auth/react";
 
@@ -6,6 +6,10 @@ const Me: NextPage = () => {
   const { data: session, status } = useSession();
   if (status === "unauthenticated") {
     window.location.href = "/login";
+  } else if (status === "loading") {
+    <Flex align={"center"} justify={"center"}>
+      <Spinner />
+    </Flex>;
   }
   return (
     <Container lineHeight={10}>

@@ -8,15 +8,13 @@ import { ApolloServer } from "apollo-server-micro";
 import { MicroRequest } from "apollo-server-micro/dist/types";
 import Cors from "micro-cors";
 import { createContext } from "../../../graphql/context";
-import { resolvers } from "../../../graphql/resolvers";
-import { typeDefs } from "../../../graphql/typeDefs";
+import { schema } from "../../../graphql/schema";
 
 const cors = Cors();
 
 const apolloServer = new ApolloServer({
   plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
-  typeDefs,
-  resolvers,
+  schema,
   context: async ({ req }: { req: MicroRequest }) => {
     return createContext(req);
   },
