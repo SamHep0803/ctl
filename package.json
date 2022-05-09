@@ -1,6 +1,7 @@
 {
   "private": true,
   "scripts": {
+    "dev": "yarn dev:local",
     "dev:local": "dotenv -e environments/.env.local next dev",
     "dev:staging": "dotenv -e environments/.env.staging next dev",
     "build": "next build",
