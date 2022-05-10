@@ -1,0 +1,9 @@
+query Event($id: Int!) {
+  event(id: $id) {
+    id
+    name
+    description
+    createdAt
+    updatedAt
+  }
+}

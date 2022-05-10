@@ -6,8 +6,13 @@
     "dev:staging": "dotenv -e environments/.env.staging next dev",
     "build": "next build",
     "start": "next start",
-    "init-db:local": "dotenv -e environments/.env.local prisma db push && dotenv -e environments/.env.local prisma db seed",
-    "init-db:staging": "dotenv -e environments/.env.staging prisma db push && dotenv -e environments/.env.staging prisma db seed"
+    "push-db:local": "dotenv -e environments/.env.local prisma db push",
+    "push-db:staging": "dotenv -e environments/.env.staging prisma db push",
+    "seed-db:local": "dotenv -e environments/.env.local prisma db seed",
+    "seed-db:staging": "dotenv -e environments/.env.staging prisma db seed",
+    "init-db:local": "yarn push-db:local && yarn seed-db:local",
+    "init-db:staging": "yarn push-db:staging && yarn seed-db:staging",
+    "gen": "graphql-codegen"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
@@ -30,6 +35,10 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^2.6.2",
+    "@graphql-codegen/typed-document-node": "^2.2.11",
+    "@graphql-codegen/typescript": "^2.4.11",
+    "@graphql-codegen/typescript-operations": "^2.4.0",
     "@types/micro-cors": "^0.1.2",
     "@types/node": "17.0.4",
     "@types/react": "17.0.38",
@@ -37,6 +46,7 @@
     "class-validator": "^0.13.2",
     "dotenv-cli": "^5.1.0",
     "graphql": "^15.3.0",
+    "moment": "^2.29.3",
     "prettier": "^2.5.1",
     "prisma": "^3.13.0",
     "reflect-metadata": "^0.1.13",

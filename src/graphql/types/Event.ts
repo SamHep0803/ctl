@@ -20,6 +20,12 @@ export class Event {
   @Field()
   description: string;
 
+  @Field()
+  small_image: string;
+
+  @Field()
+  large_image: string;
+
   @Field(() => String)
   createdAt: Date;
 

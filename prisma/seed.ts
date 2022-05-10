@@ -9,6 +9,8 @@ const main = async () => {
       name: "CTL: Eastbound 2022",
       description:
         "Cross The Land: Eastbound 2022 Edition is here in partnership with VATMENA and VATEUD! Stay tuned for more updates.",
+      small_image: "https://cdn.vatsim.me/ctl/logos/FullColour.png",
+      large_image: "https://cdn.vatsim.me/ctl/banners/CTL_E2021arpt.png",
     },
   });
 
@@ -18,6 +20,8 @@ const main = async () => {
       name: "CTL: Westbound 2023",
       description:
         "Cross The Land: Westbound 2023 Edition is here in partnership with VATMENA and VATEUD! Stay tuned for more updates.",
+      small_image: "https://cdn.vatsim.me/ctl/logos/FullColour.png",
+      large_image: "https://cdn.vatsim.me/ctl/banners/CTLW22.jpg",
     },
   });
 };
