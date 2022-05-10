@@ -1,39 +1,45 @@
-import { arg, extendType, intArg, nonNull, objectType } from "nexus";
+import {
+  Arg,
+  Ctx,
+  Field,
+  Int,
+  ObjectType,
+  Query,
+  Resolver,
+} from "type-graphql";
+import { Context } from "../context";
 
-export const Event = objectType({
-  name: "Event",
-  definition(t) {
-    t.int("id");
-    t.string("name");
-    t.string("description");
-    t.string("createdAt");
-    t.string("updatedAt");
-  },
-});
+@ObjectType()
+export class Event {
+  @Field(() => Int)
+  id: number;
 
-export const EventQuery = extendType({
-  type: "Query",
-  definition(t) {
-    t.list.field("events", {
-      type: "Event",
-      //@ts-ignore
-      resolve: (root, args, ctx) => {
-        return ctx.prisma.event.findMany();
-      },
-    });
-    t.field("event", {
-      type: "Event",
-      args: {
-        id: nonNull(intArg()),
-      },
-      //@ts-ignore
-      resolve: (root, args, ctx) => {
-        return ctx.prisma.event.findUnique({
-          where: {
-            id: args.id!,
-          },
-        });
-      },
-    });
-  },
-});
+  @Field()
+  name: string;
+
+  @Field()
+  description: string;
+
+  @Field(() => String)
+  createdAt: Date;
+
+  @Field(() => String)
+  updatedAt: Date;
+}
+
+@Resolver()
+export class EventResolver {
+  @Query(() => [Event])
+  async events(@Ctx() { prisma }: Context): Promise<Event[]> {
+    return await prisma.event.findMany();
+  }
+
+  @Query(() => Event, { nullable: true })
+  async event(
+    @Ctx() { prisma }: Context,
+    @Arg("id", () => Int) id: number
+  ): Promise<Event | null> {
+    console.log(id);
+    return await prisma.event.findFirst({ where: { id } });
+  }
+}

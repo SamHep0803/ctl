@@ -1,25 +1,13 @@
-import {
-  ApolloServerPluginLandingPageDisabled,
-  ApolloServerPluginLandingPageGraphQLPlayground,
-  ApolloServerPluginLandingPageLocalDefault,
-  ApolloServerPluginLandingPageProductionDefault,
-} from "apollo-server-core";
+import "reflect-metadata";
+import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import { ApolloServer } from "apollo-server-micro";
 import { MicroRequest } from "apollo-server-micro/dist/types";
 import Cors from "micro-cors";
+import { buildSchema } from "type-graphql";
 import { createContext } from "../../../graphql/context";
-import { schema } from "../../../graphql/schema";
+import { EventResolver, UserResolver } from "../../../graphql/types";
 
 const cors = Cors();
-
-const apolloServer = new ApolloServer({
-  plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
-  schema,
-  context: async ({ req }: { req: MicroRequest }) => {
-    return createContext(req);
-  },
-});
-const startServer = apolloServer.start();
 
 export default cors(async (req, res) => {
   if (req.method === "OPTIONS") {
@@ -27,7 +15,16 @@ export default cors(async (req, res) => {
     return false;
   }
 
-  await startServer;
+  const apolloServer = new ApolloServer({
+    plugins: [ApolloServerPluginLandingPageGraphQLPlayground],
+    schema: await buildSchema({
+      resolvers: [EventResolver, UserResolver],
+    }),
+    context: async ({ req }: { req: MicroRequest }) => {
+      return createContext(req);
+    },
+  });
+  await apolloServer.start();
 
   await apolloServer.createHandler({
     path: "/api/graphql",
