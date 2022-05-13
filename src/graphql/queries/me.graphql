@@ -1,0 +1,8 @@
+query Me {
+  me {
+    cid
+    full_name
+    email
+    region
+  }
+}

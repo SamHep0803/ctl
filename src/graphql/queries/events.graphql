@@ -1,0 +1,12 @@
+query Events {
+  events {
+    id
+    name
+    short_description
+    long_description
+    small_image
+    large_image
+    createdAt
+    updatedAt
+  }
+}

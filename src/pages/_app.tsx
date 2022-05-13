@@ -1,17 +1,30 @@
+import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import { ChakraProvider } from "@chakra-ui/react";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
-import { NavBar } from "../components/NavBar";
+import Head from "next/head";
+import { NavBar } from "../components/Navbar";
 import theme from "../theme";
+
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  uri: "/api/graphql",
+});
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <SessionProvider session={pageProps.session}>
-      <ChakraProvider theme={theme}>
-        <NavBar />
-        <Component {...pageProps} />
-      </ChakraProvider>
-    </SessionProvider>
+    <ApolloProvider client={client}>
+      <SessionProvider session={pageProps.session}>
+        <ChakraProvider theme={theme}>
+          <Head>
+            <title>Cross The Land</title>
+            <meta name="referrer" content="no-referrer" />
+          </Head>
+          <NavBar />
+          <Component {...pageProps} />
+        </ChakraProvider>
+      </SessionProvider>
+    </ApolloProvider>
   );
 }
 

@@ -1,0 +1,12 @@
+query Event($id: Int!) {
+  event(id: $id) {
+    id
+    name
+    short_description
+    long_description
+    small_image
+    large_image
+    createdAt
+    updatedAt
+  }
+}
