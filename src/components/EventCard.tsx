@@ -2,7 +2,7 @@ import {
   Box,
   Button,
   Heading,
-  Image,
+  Img,
   LinkBox,
   LinkOverlay,
   Modal,
@@ -25,7 +25,6 @@ interface EventCardProps {
 
 export const EventCard: React.FC<EventCardProps> = ({ event }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  console.log(event);
   return (
     <>
       <LinkBox
@@ -46,21 +45,26 @@ export const EventCard: React.FC<EventCardProps> = ({ event }) => {
             {event.name}
           </Heading>
         </LinkOverlay>
-        <Text>{event.description}</Text>
+        <Text>{event.short_description}</Text>
       </LinkBox>
-      <Modal isOpen={isOpen} onClose={onClose} size={"2xl"}>
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        size={"2xl"}
+        scrollBehavior={"inside"}
+      >
         <ModalOverlay />
         <ModalContent>
-          <Image src={event.large_image} />
+          <Img src={event.large_image} />
           <ModalHeader>{event.name}</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>{event.description}</ModalBody>
+          <ModalBody>{event.long_description}</ModalBody>
 
           <ModalFooter>
             <Button colorScheme="blue" mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button variant="outline">Book</Button>
+            <Button>Book</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

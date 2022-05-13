@@ -2,7 +2,8 @@ query Events {
   events {
     id
     name
-    description
+    short_description
+    long_description
     small_image
     large_image
     createdAt

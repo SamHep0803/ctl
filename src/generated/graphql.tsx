@@ -16,12 +16,44 @@ export type Scalars = {
 export type Event = {
   __typename?: 'Event';
   createdAt: Scalars['String'];
-  description: Scalars['String'];
   id: Scalars['Int'];
   large_image: Scalars['String'];
+  long_description: Scalars['String'];
   name: Scalars['String'];
+  short_description: Scalars['String'];
   small_image: Scalars['String'];
   updatedAt: Scalars['String'];
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  createEvent?: Maybe<Event>;
+  deleteEvent?: Maybe<Event>;
+  updateEvent?: Maybe<Event>;
+};
+
+
+export type MutationCreateEventArgs = {
+  large_image: Scalars['String'];
+  long_description: Scalars['String'];
+  name: Scalars['String'];
+  short_description: Scalars['String'];
+  small_image: Scalars['String'];
+};
+
+
+export type MutationDeleteEventArgs = {
+  id: Scalars['Int'];
+};
+
+
+export type MutationUpdateEventArgs = {
+  id: Scalars['Int'];
+  large_image?: InputMaybe<Scalars['String']>;
+  long_description?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  short_description?: InputMaybe<Scalars['String']>;
+  small_image?: InputMaybe<Scalars['String']>;
 };
 
 export type Query = {
@@ -52,12 +84,12 @@ export type EventQueryVariables = Exact<{
 }>;
 
 
-export type EventQuery = { __typename?: 'Query', event?: { __typename?: 'Event', id: number, name: string, description: string, createdAt: string, updatedAt: string } | null };
+export type EventQuery = { __typename?: 'Query', event?: { __typename?: 'Event', id: number, name: string, short_description: string, long_description: string, small_image: string, large_image: string, createdAt: string, updatedAt: string } | null };
 
 export type EventsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type EventsQuery = { __typename?: 'Query', events: Array<{ __typename?: 'Event', id: number, name: string, description: string, small_image: string, large_image: string, createdAt: string, updatedAt: string }> };
+export type EventsQuery = { __typename?: 'Query', events: Array<{ __typename?: 'Event', id: number, name: string, short_description: string, long_description: string, small_image: string, large_image: string, createdAt: string, updatedAt: string }> };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -65,6 +97,6 @@ export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 export type MeQuery = { __typename?: 'Query', me?: { __typename?: 'User', cid: string, full_name: string, email: string, region: string } | null };
 
 
-export const EventDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Event"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"event"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<EventQuery, EventQueryVariables>;
-export const EventsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Events"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"events"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"small_image"}},{"kind":"Field","name":{"kind":"Name","value":"large_image"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<EventsQuery, EventsQueryVariables>;
+export const EventDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Event"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"event"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"short_description"}},{"kind":"Field","name":{"kind":"Name","value":"long_description"}},{"kind":"Field","name":{"kind":"Name","value":"small_image"}},{"kind":"Field","name":{"kind":"Name","value":"large_image"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<EventQuery, EventQueryVariables>;
+export const EventsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Events"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"events"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"short_description"}},{"kind":"Field","name":{"kind":"Name","value":"long_description"}},{"kind":"Field","name":{"kind":"Name","value":"small_image"}},{"kind":"Field","name":{"kind":"Name","value":"large_image"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}}]}}]}}]} as unknown as DocumentNode<EventsQuery, EventsQueryVariables>;
 export const MeDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"me"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"cid"}},{"kind":"Field","name":{"kind":"Name","value":"full_name"}},{"kind":"Field","name":{"kind":"Name","value":"email"}},{"kind":"Field","name":{"kind":"Name","value":"region"}}]}}]}}]} as unknown as DocumentNode<MeQuery, MeQueryVariables>;

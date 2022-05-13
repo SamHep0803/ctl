@@ -82,6 +82,9 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             <Img src="/images/CTL.png" h="60px" />
           </Link>
         </NextLink>
+        <NextLink href="/events">
+          <Button variant={"ghost"}>Events</Button>
+        </NextLink>
       </Flex>
 
       <Flex ml="auto" p={4} alignItems="center">

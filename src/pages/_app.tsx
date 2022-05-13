@@ -18,6 +18,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <ChakraProvider theme={theme}>
           <Head>
             <title>Cross The Land</title>
+            <meta name="referrer" content="no-referrer" />
           </Head>
           <NavBar />
           <Component {...pageProps} />
