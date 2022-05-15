@@ -7,14 +7,12 @@ import { NavBar } from "../components/Navbar";
 import theme from "../theme";
 import { isLocal, isStaging } from "../utils/isProd";
 
-console.log(process.env.DEPLOY_STAGE);
-
 const client = new ApolloClient({
   cache: new InMemoryCache(),
   uri: isStaging
     ? "https://beta-ctl.vatsim.me/api/graphql"
     : isLocal
-    ? "http://localhost:4000/api/graphql"
+    ? "http://localhost:3000/api/graphql"
     : "https://ctl.vatsim.me/api/graphql",
 });
 
