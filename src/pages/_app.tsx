@@ -7,7 +7,7 @@ import { NavBar } from "../components/Navbar";
 import theme from "../theme";
 import { isLocal, isStaging } from "../utils/isProd";
 
-console.log(process.env.DEPLOY_STAGE);
+console.log(process.env.VATSIM_URL);
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
