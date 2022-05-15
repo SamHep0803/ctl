@@ -5,6 +5,16 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import { NavBar } from "../components/Navbar";
 import theme from "../theme";
+import { isLocal, isStaging } from "../utils/isProd";
+
+const client = new ApolloClient({
+  cache: new InMemoryCache(),
+  uri: isStaging
+    ? "https://beta-ctl.vatsim.me/api/graphql"
+    : isLocal
+    ? "http://localhost:4000/api/graphql"
+    : "https://ctl.vatsim.me/api/graphql",
+});
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
