@@ -16,11 +16,6 @@ const client = new ApolloClient({
     : "https://ctl.vatsim.me/api/graphql",
 });
 
-const client = new ApolloClient({
-  cache: new InMemoryCache(),
-  uri: "/api/graphql",
-});
-
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={client}>
