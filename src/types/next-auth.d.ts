@@ -4,10 +4,11 @@ import { DefaultJWT, JWT } from "next-auth/jwt";
 import {
   VatsimUserDetails,
   VatsimUserPersonal,
-} from "./src/interfaces/VatsimUser";
+} from "../interfaces/VatsimUser";
 
 declare module "next-auth" {
   interface Session {
+    userId: string;
     user: {
       id: string;
       cid: string;
@@ -18,7 +19,8 @@ declare module "next-auth" {
       email: string;
     };
   }
-  export interface User {
+
+  interface User {
     id: string;
     cid: string;
     full_name: string;
@@ -27,6 +29,7 @@ declare module "next-auth" {
     region: string;
     email: string;
   }
+
   // export interface Profile {
   //   id: string;
   //   cid: string;

@@ -11,12 +11,45 @@ datasource db {
 }
 
 model Event {
-  id                Int @id @default(autoincrement())
-  name              String @unique
+  id                Int      @id @default(autoincrement())
+  name              String   @unique
   short_description String
   long_description  String
   small_image       String
   large_image       String
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
+}
+
+// model Account {
+//   provider          String
+//   type              String
+//   providerAccountId String
+//   scopes            String[]
+//   refresh_token     String
+//   access_token      String
+//   expires_at        Int
+//   token_type        String
+
+//   user User @relation(fields: [providerAccountId], references: [cid], onDelete: Cascade)
+
+//   @@unique([provider, providerAccountId])
+// }
+
+// model Session {
+//   id           String   @id @default(cuid())
+//   sessionToken String   @unique
+//   userId       String
+//   expires      DateTime
+//   user         User     @relation(fields: [userId], references: [cid], onDelete: Cascade)
+// }
+
+model User {
+  id String
+  cid       String
+  full_name String
+  ratingId  Int
+  rating    String
+  region    String
+  email     String @unique
 }

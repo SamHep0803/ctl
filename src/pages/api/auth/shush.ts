@@ -1,8 +1,12 @@
 import NextAuth, { Awaitable, Session, User } from "next-auth";
-import { JWT } from "next-auth/jwt";
-import { VatsimUser } from "../../../interfaces/VatsimUser";
+import { VatsimUser } from "../../../Interfaces/VatsimUser";
+import { PrismaClient } from "@prisma/client";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+
+const prisma = new PrismaClient();
 
 export default NextAuth({
+  adapter: PrismaAdapter(prisma),
   providers: [
     {
       id: "vatsim",
@@ -39,7 +43,9 @@ export default NextAuth({
   ],
   callbacks: {
     async jwt({ token, user, profile, account }) {
+      console.log(account);
       if (user) {
+        token.id = user.id;
         token.cid = user.cid;
         token.full_name = user.full_name;
         token.ratingId = user.ratingId;
@@ -50,6 +56,8 @@ export default NextAuth({
       return token;
     },
     async session({ session, token }) {
+      session.userId = token.id;
+      session.user.id = token.id;
       session.user.cid = token.cid;
       session.user.full_name = token.full_name;
       session.user.ratingId = token.ratingId;
