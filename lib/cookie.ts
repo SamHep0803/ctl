@@ -1,3 +1,4 @@
+import { MicroRequest } from "apollo-server-micro/dist/types";
 import { parse, serialize } from "cookie";
 import { NextApiRequest, NextApiResponse } from "next";
 import { isProd, isStaging } from "../src/utils/isProd";
@@ -29,14 +30,17 @@ export const removeTokenCookie = (res: NextApiResponse) => {
   res.setHeader("Set-Cookie", cookie);
 };
 
-export const getTokenCookie = (req: NextApiRequest): string | undefined => {
+export const getTokenCookie = (
+  req: NextApiRequest | MicroRequest
+): string | undefined => {
   const cookies = parseCookies(req);
   return cookies[TOKEN_COOKIE_NAME];
 };
 
-export const parseCookies = (req: NextApiRequest): Cookies => {
-  if (req.cookies) {
-    return req.cookies;
+export const parseCookies = (req: NextApiRequest | MicroRequest): Cookies => {
+  if ("cookies" in (req as NextApiRequest)) {
+    return (req as NextApiRequest).cookies;
   }
+
   return parse(req.headers.cookie || "");
 };

@@ -16,20 +16,21 @@ import {
   useColorMode,
   useDisclosure,
 } from "@chakra-ui/react";
-import { signOut, useSession } from "next-auth/react";
+// import { signOut } from "next-auth/react";
 import NextLink from "next/link";
 import React from "react";
+import { useUser } from "../../lib/user";
 import { RatingBadge } from "./RatingBadge";
 
 interface NavBarProps {}
 
 export const NavBar: React.FC<NavBarProps> = ({}) => {
   const { isOpen, onToggle } = useDisclosure();
-  const { data: session, status } = useSession();
+  const user = useUser();
 
   const { colorMode, toggleColorMode } = useColorMode();
   let body;
-  if (!session) {
+  if (!user) {
     body = (
       <NextLink href="/login">
         <Button mr={4} color="primary" rounded={"2xl"}>
@@ -37,7 +38,7 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
         </Button>
       </NextLink>
     );
-  } else if (status === "authenticated") {
+  } else if (user) {
     body = (
       <>
         <Menu>
@@ -51,23 +52,23 @@ export const NavBar: React.FC<NavBarProps> = ({}) => {
             h="48px"
             p={0}
           >
-            <Avatar size={"md"} name={session.user.full_name} />
+            <Avatar size={"md"} name={user.personal?.name_full} />
           </MenuButton>
           <MenuList alignItems={"center"}>
             <Center py={2}>
-              <Avatar size={"2xl"} name={session.user.full_name} />
+              <Avatar size={"2xl"} name={user.personal?.name_full} />
             </Center>
             <Center pb={2}>
-              <Text mr={2}>{session.user.full_name}</Text>
-              <RatingBadge rating={session.user.ratingId} />
+              <Text mr={2}>{user.personal?.name_full}</Text>
+              <RatingBadge rating={user.vatsim?.rating.id} />
             </Center>
             <MenuDivider />
             <NextLink href="/me">
               <MenuItem>Your Profile</MenuItem>
             </NextLink>
-            <MenuItem onClick={() => signOut({ redirect: true })}>
+            {/* <MenuItem onClick={() => signOut({ redirect: true })}>
               Logout
-            </MenuItem>
+            </MenuItem> */}
           </MenuList>
         </Menu>
       </>

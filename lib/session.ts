@@ -1,7 +1,6 @@
 import Iron from "@hapi/iron";
 import { MicroRequest } from "apollo-server-micro/dist/types";
 import { NextApiRequest, NextApiResponse } from "next";
-import { getSession } from "next-auth/react";
 import { getTokenCookie, MAX_AGE, setTokenCookie } from "./cookie";
 
 export type UserSession = {
@@ -26,7 +25,7 @@ export const setUserSession = async (res: NextApiResponse, token: string) => {
 };
 
 export const getUserSession = async (
-  req: NextApiRequest
+  req: NextApiRequest | MicroRequest
 ): Promise<UserSession | null> => {
   const secureSession = getTokenCookie(req);
   if (!secureSession) {
@@ -45,6 +44,6 @@ export const getUserSession = async (
 };
 
 export const createSessionCtx = async (req: MicroRequest) => {
-  const session = await getSession({ req });
+  const session = await getUserSession(req);
   return session;
 };

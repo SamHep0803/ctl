@@ -1,22 +1,18 @@
-import { Container, Flex, Heading, Spinner } from "@chakra-ui/react";
+import { Container, Heading } from "@chakra-ui/react";
 import { NextPage } from "next";
-import { useSession } from "next-auth/react";
+import { useUser } from "../../lib/user";
 
 const Me: NextPage = () => {
-  const { data: session, status } = useSession();
-  if (status === "unauthenticated") {
+  const user = useUser();
+  if (!user) {
     window.location.href = "/login";
-  } else if (status === "loading") {
-    <Flex align={"center"} justify={"center"}>
-      <Spinner />
-    </Flex>;
   }
   return (
     <Container lineHeight={10}>
       <Heading fontSize={"4xl"}>Your Profile:</Heading>
-      <Heading fontSize={"2xl"}>Name: {session?.user?.full_name}</Heading>
-      <Heading fontSize={"2xl"}>Email: {session?.user?.email}</Heading>
-      <Heading fontSize={"2xl"}>Rating: {session?.user?.rating}</Heading>
+      <Heading fontSize={"2xl"}>Name: {user.personal?.name_full}</Heading>
+      <Heading fontSize={"2xl"}>Email: {user.personal?.email}</Heading>
+      <Heading fontSize={"2xl"}>Rating: {user.vatsim?.rating.short}</Heading>
     </Container>
   );
 };

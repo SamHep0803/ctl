@@ -1,3 +1,4 @@
+import { useUser } from "@/lib/user";
 import {
   Box,
   Button,
@@ -8,12 +9,12 @@ import {
   Stack,
 } from "@chakra-ui/react";
 import { NextPage } from "next";
-import { signIn, useSession } from "next-auth/react";
+import NextLink from "next/link";
 
 const Login: NextPage = () => {
-  const { data: session } = useSession();
+  const user = useUser();
 
-  if (session) {
+  if (user) {
     window.location.href = "/";
   }
 
@@ -34,17 +35,23 @@ const Login: NextPage = () => {
           CTL Login
         </Heading>
         <Flex>
-          <Button
-            colorScheme={"green"}
-            bg={"primary.400"}
-            rounded={"2xl"}
-            px={6}
-            _hover={{ bg: "primary.500" }}
-            onClick={() => signIn("vatsim")}
-          >
-            Login with
-            <Img src="/images/vatsim_black.png" alt="VATSIM" h="25px" ml={1} />
-          </Button>
+          <NextLink href="/api/auth/callback">
+            <Button
+              colorScheme={"green"}
+              bg={"primary.400"}
+              rounded={"2xl"}
+              px={6}
+              _hover={{ bg: "primary.500" }}
+            >
+              Login with
+              <Img
+                src="/images/vatsim_black.png"
+                alt="VATSIM"
+                h="25px"
+                ml={1}
+              />
+            </Button>
+          </NextLink>
         </Flex>
       </Stack>
     </Container>
